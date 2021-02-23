@@ -14,4 +14,9 @@
  * 
  */
 
-#include "TermOSEmulator.h"
+#include "../include/TermOSEmulator.h"
+
+int main(int argc, char const *argv[]) {
+  printf("Welcome to TermOSEmulator!\n");
+  return 0;
+}

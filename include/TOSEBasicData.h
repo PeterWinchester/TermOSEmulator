@@ -1,5 +1,5 @@
 /*
- * TermOSEmulator.h
+ * TOSEBasicData.h
  * 
  * This file is a part of TermOSEmulator.
  * 
@@ -14,10 +14,9 @@
  * 
  */
 
-#ifndef TERMOSEMULATOR_H
-#define TERMOSEMULATOR_H
+#ifndef TOSE_BASIC_DATA_H
+#define TOSE_BASIC_DATA_H
 
-#include "TOSECppLib.h"
-#include "TOSEBasicData.h"
+#include "TermOSEmulator.h"
 
-#endif //TERMOSEMULATOR_H
+#endif //TOSE_BASIC_DATA_H
