@@ -17,3 +17,4 @@
 #include "TOSEBasicData.h"
 
 bool toseRunning;
+char systemRootPath[MAX_STRING_LEN];

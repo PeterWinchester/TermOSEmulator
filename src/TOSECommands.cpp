@@ -28,6 +28,6 @@ int pause(const char **args) {
 }
 
 int exitSys(const char **args) {
-  toseRunning = false;
+  toseRunning = false; //This means TOSE will quit!
   return 0;
 }

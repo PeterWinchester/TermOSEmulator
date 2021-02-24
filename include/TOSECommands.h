@@ -23,9 +23,10 @@
 
 typedef int (*CmdFunc)(const char**);
 
+/* These pointers point the functions to execute TOSE commands. */
 extern CmdFunc cmdOpt[NUM_COMMANDS];
 
-int pause(const char**);
-int exitSys(const char**);
+int pause(const char**); //Execute the command 'pause'.
+int exitSys(const char**); //Execute the command 'exit'.
 
 #endif //TOSE_COMMANDS_H

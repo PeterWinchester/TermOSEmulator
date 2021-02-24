@@ -19,7 +19,9 @@
 
 #include "TermOSEmulator.h"
 
-extern bool toseRunning;
-extern char* systemRootPath;
+#define MAX_STRING_LEN 1000
+
+extern bool toseRunning; //A sign to check if TOSE is running.
+extern char systemRootPath[MAX_STRING_LEN]; //The root path of TOSE.
 
 #endif //TOSE_BASIC_DATA_H

@@ -21,26 +21,27 @@ void startUp();
 int getSystemRootPath();
 
 int main(int argc, char const *argv[]) {
-  if (!initTermOSEmulator()) {
+  if (!initTermOSEmulator()) { //Failed to initailize TOSE.
     printf("Error! Cannot load system data.\n");
     printf("Please check the files in the /dat directory.\n");
     pause(NULL);
     return 0;
   }
   startUp();
+  /* This is the whole procedure that contains the user's operations. */
   while (toseRunning) {
     pause(NULL);
     exitSys(NULL);
   }
   return 0;
 }
-
+//Initailize TOSE.
 int initTermOSEmulator() {
-  toseRunning = true;
-  if (!getSystemRootPath()) return 0;
+  toseRunning = true; //This means TOSE begins running!
+  if (!getSystemRootPath()) return 0; //Failed to get root path.
   return 1;
 }
-
+//Load the start page.
 void startUp() {
   printf("Welcome to TermOSEmulator!\n\n");
   printf("Copyright (C) 2021 Peter Winchester.\n\n");
