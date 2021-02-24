@@ -14,7 +14,7 @@
  * 
  */
 
-#include "../include/TOSECommands.h"
+#include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
   pause, exitSys
