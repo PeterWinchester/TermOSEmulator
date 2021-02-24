@@ -14,9 +14,35 @@
  * 
  */
 
-#include "../include/TermOSEmulator.h"
+#include "TermOSEmulator.h"
+
+int initTermOSEmulator();
+void startUp();
+int getSystemRootPath();
 
 int main(int argc, char const *argv[]) {
-  
+  if (!initTermOSEmulator()) {
+    printf("Error! Cannot load system data.\n");
+    printf("Please check the files in the /dat directory.\n");
+  }
+  startUp();
+  while (toseRunning) {
+    pause(NULL);
+    exitSys(NULL);
+  }
   return 0;
+}
+
+int initTermOSEmulator() {
+  toseRunning = true;
+  if (!getSystemRootPath()) return 0;
+  return 1;
+}
+
+void startUp() {
+  
+}
+
+int getSystemRootPath() {
+  return 1;
 }

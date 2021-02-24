@@ -1,5 +1,5 @@
 /*
- * TOSECppLib.h
+ * TOSECommands.h
  * 
  * This file is a part of TermOSEmulator.
  * 
@@ -14,8 +14,18 @@
  * 
  */
 
-#include <cstdio>
-#include <iostream>
-#include <cstring>
-#include <windows.h>
-#include <conio.h>
+#ifndef TOSE_COMMANDS_H
+#define TOSE_COMMANDS_H
+
+#include "TermOSEmulator.h"
+
+#define NUM_COMMANDS 2
+
+typedef int (*CmdFunc)(const char**);
+
+extern CmdFunc cmdOpt[NUM_COMMANDS];
+
+int pause(const char**);
+int exitSys(const char**);
+
+#endif //TOSE_COMMANDS_H

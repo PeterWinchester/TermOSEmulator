@@ -1,5 +1,5 @@
 /*
- * TOSECppLib.h
+ * TOSECommands.h
  * 
  * This file is a part of TermOSEmulator.
  * 
@@ -13,9 +13,3 @@
  * run on the Windows.
  * 
  */
-
-#include <cstdio>
-#include <iostream>
-#include <cstring>
-#include <windows.h>
-#include <conio.h>

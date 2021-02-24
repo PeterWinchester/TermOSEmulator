@@ -19,4 +19,7 @@
 
 #include "TermOSEmulator.h"
 
+extern bool toseRunning;
+extern char* systemRootPath;
+
 #endif //TOSE_BASIC_DATA_H

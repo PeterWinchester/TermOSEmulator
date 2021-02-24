@@ -14,4 +14,6 @@
  * 
  */
 
-#include "../include/TOSEBasicData.h"
+#include "TOSEBasicData.h"
+
+bool toseRunning;
