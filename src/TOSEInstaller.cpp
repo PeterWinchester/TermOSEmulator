@@ -31,6 +31,8 @@ int main(int argc, char const *argv[]) {
   /* Mount root path. */
   if (!mount()) {
     printf("\nError! Please check your root path!\n");
+    printf("If you have installed TermOSEmulator in your root path before,\n");
+    printf("please remove it first.\n");
     cmdArgs.clear();
     pause(cmdArgs);
     return 0;
@@ -42,13 +44,18 @@ int main(int argc, char const *argv[]) {
     pause(cmdArgs);
     return 0;
   }
+
+  /* Finished. */
+  printf("Now you have installed TermOSEmulator.\n");
+  printf("You can go to /bin/ and run TermOSEmulator.exe to start TermOSEmulator.\n");
+  cmdArgs.clear();
+  pause(cmdArgs);
   return 0;
 }
 
 //Show the start page ang get root path.
 int startUp() {
   printf("Welcome to TermOSEmulator Installer.\n");
-  printf("If you have installed TermOSEmulator, please remove it first!\n");
   printf("Please type a path to mount the root directory /(The last character is '/' or '\\'):\n");
 
   /* In this loop, TOSEInstaller will get the root path. */
@@ -138,6 +145,17 @@ int install() {
   char cGet;
   while (fscanf(fin, "%c", &cGet) == 1) fprintf(fout, "%c", cGet);
   fclose(fin);
+  fclose(fout);
+
+  /* Record the root path. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "dat/rootpath.txt");
+  fout = fopen(dir, "w");
+  for (int i=0; i<strlen(systemRootPath); i++) {
+    fprintf(fout, "%c", systemRootPath[i]);
+  }
+  fprintf(fout, "\r");
   fclose(fout);
 
   printf("done!\n"); //Finished.
