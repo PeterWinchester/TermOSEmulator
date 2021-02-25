@@ -12,5 +12,6 @@ TOSECommands.o : src/TOSECommands.cpp
 SHELL=cmd.exe
 clean:
 	del *.o
+	del TOSEInstaller.exe TermOSEmulator.exe
 install:
 	TOSEInstaller
