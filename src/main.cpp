@@ -54,7 +54,7 @@ void startUp() {
   printf("Welcome to TermOSEmulator!\n\n");
   printf("Copyright (C) 2021 Peter Winchester.\n\n");
   printf("TermOSEmulator is free software, follow the GNU General Public License.\n");
-  printf("See https://www.gnu.org/ for more information about the GPL.\n");
+  printf("See the file LICENSE for more information about GPL.\n");
   printf("Visit https://github.com/PeterWinchester/TermOSEmulator for source code.\n");
   printf("The writer's email is wincsoft_pw@outlook.com. To report bugs, please\n");
   printf("visit https://github.com/PeterWinchester/Termosemulator/issues, or you\n");
