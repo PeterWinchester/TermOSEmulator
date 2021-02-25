@@ -22,11 +22,22 @@ vector<string> cmdArgs;
 int startUp();
 int checkPath(char*);
 int mount();
+int install();
 
 int main(int argc, char const *argv[]) {
+  /* Load start page. */
   if (!startUp()) return 0;
+
+  /* Mount root path. */
   if (!mount()) {
     printf("\nError! Please check your root path!\n");
+    cmdArgs.clear();
+    pause(cmdArgs);
+    return 0;
+  }
+
+  /* Install. */
+  if (!install()) {
     cmdArgs.clear();
     pause(cmdArgs);
     return 0;
@@ -37,6 +48,7 @@ int main(int argc, char const *argv[]) {
 //Show the start page ang get root path.
 int startUp() {
   printf("Welcome to TermOSEmulator Installer.\n");
+  printf("If you have installed TermOSEmulator, please remove it first!\n");
   printf("Please type a path to mount the root directory /(The last character is '/' or '\\'):\n");
 
   /* In this loop, TOSEInstaller will get the root path. */
@@ -66,13 +78,44 @@ int checkPath(char* path) {
 
 //Mount the root path.
 int mount() {
-  printf("mounting...");
+  printf("Mounting...");
+
+  /* Create the root directory. */
   strcat(systemRootPath, "TermOSEmulator/");
   if (!CreateDirectoryA((LPCSTR)systemRootPath, NULL)) return 0;
-  static char dir[MAX_STRING_LEN];
+
+  static char dir[MAX_STRING_LEN]; //The directory that will be created.
+
+  /* Create the /bin directory. */
   strcat(dir, systemRootPath);
   strcat(dir, "bin/");
   if (!CreateDirectoryA((LPCSTR)dir, NULL)) return 0;
+
+  /* Create the /home directory. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "home/");
+  if (!CreateDirectoryA((LPCSTR)dir, NULL)) return 0;
+
+  /* Create the /dat directory. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "dat/");
+  if (!CreateDirectoryA((LPCSTR)dir, NULL)) return 0;
+
+  /* Create the /etc directory. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "etc/");
+  if (!CreateDirectoryA((LPCSTR)dir, NULL)) return 0;
+
+  /* Finished. */  
   printf("done!\n");
+  return 1;
+}
+
+//Install TermOSEmulator.
+int install() {
+  printf("Installing...");
   return 1;
 }
