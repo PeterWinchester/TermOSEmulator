@@ -91,6 +91,12 @@ int mount() {
   strcat(dir, "bin/");
   if (!CreateDirectoryA((LPCSTR)dir, NULL)) return 0;
 
+  /* Create /bin/help directory. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "bin/help/");
+  if (!CreateDirectoryA((LPCSTR)dir, NULL)) return 0;
+
   /* Create the /home directory. */
   memset(dir, 0, sizeof(dir));
   strcat(dir, systemRootPath);
@@ -117,5 +123,23 @@ int mount() {
 //Install TermOSEmulator.
 int install() {
   printf("Installing...");
+  FILE *fin, *fout;
+
+  /* Copy the TermOSEmulator.exe. */
+  fin = fopen("TermOSEmulator.exe", "rb");
+  if (fin == NULL) {
+    printf("\nError: cannot find TermOSEmulator.exe.\n");
+    return 0;
+  }
+  static char dir[MAX_STRING_LEN];
+  strcat(dir, systemRootPath);
+  strcat(dir, "bin/TermOSEmulator.exe");
+  fout = fopen(dir, "wb");
+  char cGet;
+  while (fscanf(fin, "%c", &cGet) == 1) fprintf(fout, "%c", cGet);
+  fclose(fin);
+  fclose(fout);
+
+  printf("done!\n"); //Finished.
   return 1;
 }
