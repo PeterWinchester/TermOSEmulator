@@ -9,3 +9,8 @@ TOSEBasicData.o : src/TOSEBasicData.cpp
 	g++ -g -c -I include src/TOSEBasicData.cpp
 TOSECommands.o : src/TOSECommands.cpp
 	g++ -g -c -I include src/TOSECommands.cpp
+SHELL=cmd.exe
+clean:
+	del *.o
+install:
+	TOSEInstaller

@@ -20,14 +20,14 @@ CmdFunc cmdOpt[NUM_COMMANDS] = {
   pause, exitSys
 };
 
-int pause(const char **args) {
+int pause(vector<string> args) {
   printf("Press any key to continue...");
   getch();
   printf("\n");
   return 0;
 }
 
-int exitSys(const char **args) {
+int exitSys(vector<string> args) {
   toseRunning = false; //This means TOSE will quit!
   return 0;
 }

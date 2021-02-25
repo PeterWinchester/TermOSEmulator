@@ -19,3 +19,7 @@
 #include <cstring>
 #include <windows.h>
 #include <conio.h>
+#include <string>
+#include <vector>
+
+using namespace std;
