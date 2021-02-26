@@ -158,6 +158,25 @@ int install() {
   fprintf(fout, "\r");
   fclose(fout);
 
+  /* Initailize the explorer. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "dat/explorerdat.txt");
+  fout = fopen(dir, "w");
+  fprintf(fout, "md bin\r");
+  fprintf(fout, "cd bin\r");
+  fprintf(fout, "md help\r");
+  fprintf(fout, "mf TermOSEmulator exe\r");
+  fprintf(fout, "cd ..\r");
+  fprintf(fout, "md dat\r");
+  fprintf(fout, "cd dat\r");
+  fprintf(fout, "mf rootpath txt\r");
+  fprintf(fout, "mf explorerdat txt\r");
+  fprintf(fout, "cd ..\r");
+  fprintf(fout, "md etc\r");
+  fprintf(fout, "md home\r");
+  fclose(fout);
+
   printf("done!\n"); //Finished.
   return 1;
 }

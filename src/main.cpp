@@ -22,6 +22,7 @@ vector<string> cmdArgs;
 int initTermOSEmulator();
 void startUp();
 int getSystemRootPath();
+int initExplorer();
 
 int main(int argc, char const *argv[]) {
   if (!initTermOSEmulator()) { //Failed to initailize TOSE.
@@ -73,4 +74,9 @@ int getSystemRootPath() {
   while (fscanf(fin, "%c", &cGet) == 1) systemRootPath[len++] = cGet;
   fclose(fin);
   return 1;
+}
+
+//Initailize the explorer.
+int initExplorer() {
+  
 }

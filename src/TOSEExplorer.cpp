@@ -1,5 +1,5 @@
 /*
- * TOSECommands.cpp
+ * TOSEExplorer.cpp
  * 
  * This file is a part of TermOSEmulator.
  * 
@@ -14,20 +14,6 @@
  * 
  */
 
-#include "TOSECommands.h"
+#include "TOSEExplorer.h"
 
-CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys
-};
-
-int pause(const char **args) {
-  printf("Press any key to continue...");
-  getch();
-  printf("\n");
-  return 0;
-}
-
-int exitSys(const char **args) {
-  toseRunning = false;
-  return 0;
-}
+Directory* dirRoot;
