@@ -49,6 +49,7 @@ int main(int argc, char const *argv[]) {
 int initTermOSEmulator() {
   toseRunning = true; //This means TOSE begins running!
   if (!getSystemRootPath()) return 0; //Failed to get root path.
+  if (!initExplorer()) return 0; //Failed to initailize explorer.
   return 1;
 }
 
@@ -78,5 +79,26 @@ int getSystemRootPath() {
 
 //Initailize the explorer.
 int initExplorer() {
-  
+  dirRoot = new Directory;
+  dirRoot->name = "root";
+  Directory* dirCrt = dirRoot;
+  freopen("../dat/explorerdat.txt", "r", stdin);
+  string opt;
+  while (scanf("%s", &opt) == 1) {
+    if (opt == "md") {
+      string name;
+      scanf("%s", &name);
+      if (!createNewDir(dirCrt, name)) return 0;
+    } else if (opt == "mf") {
+      string name, type;
+      cin >> name >> type;
+      if (!createNewFile(dirCrt, name, type)) return 0;
+    } else if (opt == "cd") {
+      string name;
+      cin >> name;
+      if (!goToDir(dirCrt, name)) return 0;
+    }
+  }
+  fclose(stdin);
+  return 1;
 }

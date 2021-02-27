@@ -19,36 +19,28 @@
 
 #include "TermOSEmulator.h"
 
-class File {
+class TOSEFile {
 public:
   string name, type;
 		
-  File();
+  TOSEFile();
 };
-
-File::File() {
-  name.clear();
-  type.clear();
-}
 
 class Directory {
 public:
   string name;
   Directory *dirFather;
-  int numChild;
   vector<Directory*> dirChild;
-  int numFile;
-  vector<File> file;
+  vector<TOSEFile> file;
 
   Directory();
-};
-
-Directory::Directory() {
-  dirFather = NULL;
-  numChild = 0;
-  numFile = 0;
+  ~Directory();
 };
 
 extern Directory* dirRoot;
+
+int createNewDir(Directory*, string);
+int createNewFile(Directory*, string, string);
+int goToDir(Directory*, string);
 
 #endif //TOSE_EXPLORER_H

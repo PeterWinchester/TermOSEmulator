@@ -20,5 +20,6 @@
 #include "TOSECppLib.h"
 #include "TOSEBasicData.h"
 #include "TOSECommands.h"
+#include "TOSEExplorer.h"
 
 #endif //TERMOSEMULATOR_H
