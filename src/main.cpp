@@ -16,6 +16,7 @@
 
 #include "TermOSEmulator.h"
 
+char cmdTyped[MAX_STRING_LEN];
 string command;
 vector<string> cmdArgs;
 
@@ -23,6 +24,8 @@ int initTermOSEmulator();
 void startUp();
 int getSystemRootPath();
 int initExplorer();
+void TranslateCmd();
+int ProcessCmd();
 
 int main(int argc, char const *argv[]) {
   if (!initTermOSEmulator()) { //Failed to initailize TOSE.
@@ -36,20 +39,23 @@ int main(int argc, char const *argv[]) {
   
   /* This is the whole procedure that contains the user's operations. */
   while (toseRunning) {
-    for (int i=0; i<strlen(systemRootPath); i++) printf("%c", systemRootPath[i]);
-    printf("\n");
-    cmdArgs.clear();
-    pause(cmdArgs);
-    exitSys(cmdArgs);
+    for (int i = 0; i < pathCrt.size(); i++) {
+      cout << pathCrt[i];
+      if (i < pathCrt.size() - 1) printf("/");
+    }
+    printf(" $ ");
+    gets(cmdTyped);
+    TranslateCmd();
+    ProcessCmd();
   }
   return 0;
 }
 
 //Initailize TOSE.
 int initTermOSEmulator() {
-  toseRunning = true; //This means TOSE begins running!
+  toseRunning = true;                 //This means TOSE begins running!
   if (!getSystemRootPath()) return 0; //Failed to get root path.
-  if (!initExplorer()) return 0; //Failed to initailize explorer.
+  if (!initExplorer()) return 0;      //Failed to initailize explorer.
   return 1;
 }
 
@@ -79,26 +85,48 @@ int getSystemRootPath() {
 
 //Initailize the explorer.
 int initExplorer() {
+  /* Create the root directory. */
   dirRoot = new Directory;
   dirRoot->name = "root";
-  Directory* dirCrt = dirRoot;
-  freopen("../dat/explorerdat.txt", "r", stdin);
+  dirCrt = dirRoot;
+  pathCrt.push_back("root");
   string opt;
-  while (scanf("%s", &opt) == 1) {
-    if (opt == "md") {
+  FILE *test = fopen("../dat/explorerdat.txt", "r");
+  if (test == NULL) {
+    return 0;
+  }
+  fclose(test);
+  ifstream fin("../dat/explorerdat.txt");
+  while (fin >> opt) {
+    if (opt == "md") { //Create a child directory.
       string name;
-      scanf("%s", &name);
-      if (!createNewDir(dirCrt, name)) return 0;
-    } else if (opt == "mf") {
+      fin >> name;
+      if (!createNewDir(name)) {
+        fin.close();
+        return 0;
+      }
+    } else if (opt == "mf") { //Create a new file.
       string name, type;
-      cin >> name >> type;
-      if (!createNewFile(dirCrt, name, type)) return 0;
-    } else if (opt == "cd") {
+      fin >> name >> type;
+      if (!createNewFile(name, type)) {
+        fin.close();
+        return 0;
+      }
+    } else if (opt == "cd") { //Move to a directory.
       string name;
-      cin >> name;
-      if (!goToDir(dirCrt, name)) return 0;
+      fin >> name;
+      if (!goToDir(name)) {
+        fin.close();
+        return 0;
+      }
     }
   }
-  fclose(stdin);
+  fin.close();
   return 1;
+}
+
+void TranslateCmd() {
+}
+
+int ProcessCmd() {
 }

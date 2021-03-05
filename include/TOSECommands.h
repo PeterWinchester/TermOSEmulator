@@ -26,7 +26,7 @@ typedef int (*CmdFunc)(vector<string>);
 /* These pointers point the functions to execute TOSE commands. */
 extern CmdFunc cmdOpt[NUM_COMMANDS];
 
-int pause(vector<string>); //Execute the command 'pause'.
+int pause(vector<string>);   //Execute the command 'pause'.
 int exitSys(vector<string>); //Execute the command 'exit'.
 
 #endif //TOSE_COMMANDS_H
