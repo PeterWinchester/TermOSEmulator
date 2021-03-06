@@ -55,6 +55,7 @@ int main(int argc, char const *argv[]) {
 
 //Show the start page ang get root path.
 int startUp() {
+  color(7);
   printf("Welcome to TermOSEmulator Installer.\n");
   printf("Please type a path to mount the root directory /(The last character is '/' or '\\'):\n");
 

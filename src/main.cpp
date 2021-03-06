@@ -55,6 +55,7 @@ int main(int argc, char const *argv[]) {
 //Initailize TOSE.
 int initTermOSEmulator() {
   toseRunning = true;                 //This means TOSE begins running!
+  color(7);
   if (!getSystemRootPath()) return 0; //Failed to get root path.
   if (!initExplorer()) return 0;      //Failed to initailize explorer.
   return 1;

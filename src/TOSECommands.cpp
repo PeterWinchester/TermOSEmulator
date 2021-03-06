@@ -17,16 +17,16 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys, ls
+  pause, exitSys, ls, cd
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit", "ls"
+  "pause", "exit", "ls", "cd"
 };
 
 int pause(vector<string> args) {
   if (args.size()) {
-    printf("The command 'pause' doesn't need any argument.\n");
+    printf("The command 'pause' doesn't need any parameter.\n");
     return 0;
   }
   printf("Press any key to continue...");
@@ -37,7 +37,7 @@ int pause(vector<string> args) {
 
 int exitSys(vector<string> args) {
   if (args.size()) {
-    printf("The command 'exit' doesn't need any argument.\n");
+    printf("The command 'exit' doesn't need any parameter.\n");
     return 0;
   }
   toseRunning = false; //This means TOSE will quit!
@@ -46,16 +46,40 @@ int exitSys(vector<string> args) {
 
 int ls(vector<string> args) {
   if (args.size()) {
-    printf("The command 'ls' doesn't need any argument.\n");
+    printf("The command 'ls' doesn't need any parameter.\n");
     return 0;
   }
-  cout << dirCrt->name << ":" << endl;
-  printf(".. <dir>\n");
-  for (int i = 0; i < dirCrt->dirChild.size(); i++) {
-    cout << dirCrt->dirChild[i]->name << " <dir>" << endl;
+  if (dirCrt != dirRoot) {
+    color(9);
+    printf(".. ");
+    color(7);
   }
+  color(9);
+  for (int i = 0; i < dirCrt->dirChild.size(); i++) {
+    cout << dirCrt->dirChild[i]->name << " ";
+  }
+  color(7);
   for (int i = 0; i < dirCrt->file.size(); i++) {
-    cout << dirCrt->file[i].name << " " << dirCrt->file[i].type << endl;
+    if (dirCrt->file[i].type == "exe") {
+      color(10);
+      cout << dirCrt->file[i].name << "." << dirCrt->file[i].type << " ";
+      color(7);
+    } else {
+      cout << dirCrt->file[i].name << "." << dirCrt->file[i].type << " ";
+    }
+  }
+  cout << endl;
+  return 1;
+}
+
+int cd(vector<string> args) {
+  if (args.size() == 0) {
+    printf("The command 'cd' needs an parameter.\n");
+    return 0;
+  }
+  if (!goToDir(args[0])) {
+    printf("Directory not found.\n");
+    return 0;
   }
   return 1;
 }

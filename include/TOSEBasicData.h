@@ -24,4 +24,6 @@
 extern bool toseRunning; //A sign to check if TOSE is running.
 extern char systemRootPath[MAX_STRING_LEN]; //The root path of TOSE.
 
+void color(int); //Set color to print.
+
 #endif //TOSE_BASIC_DATA_H
