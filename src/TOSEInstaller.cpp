@@ -74,12 +74,7 @@ int startUp() {
 int checkPath(char* path) {
   static char address[MAX_STRING_LEN];
   for (int i=0; i<strlen(path); i++) address[i] = path[i];
-  strcat(address, "mount.txt");
-  FILE* lpfile = fopen(address, "w+");
-  if (lpfile) {
-    fclose(lpfile);
-    return 1;
-  }
+  if (access(address, 0) != -1) return 1;
   return 0;
 }
 

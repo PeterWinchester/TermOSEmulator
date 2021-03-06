@@ -25,13 +25,21 @@ string cmdName[NUM_COMMANDS] = {
 };
 
 int pause(vector<string> args) {
+  if (args.size()) {
+    printf("The command 'pause' doesn't need any argument.\n");
+    return 0;
+  }
   printf("Press any key to continue...");
   getch();
   printf("\n");
-  return 0;
+  return 1;
 }
 
 int exitSys(vector<string> args) {
+  if (args.size()) {
+    printf("The command 'exit' doesn't need any argument.\n");
+    return 0;
+  }
   toseRunning = false; //This means TOSE will quit!
-  return 0;
+  return 1;
 }

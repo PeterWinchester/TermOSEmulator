@@ -39,14 +39,15 @@ int main(int argc, char const *argv[]) {
   
   /* This is the whole procedure that contains the user's operations. */
   while (toseRunning) {
+    /* Print the path. */
     for (int i = 0; i < pathCrt.size(); i++) {
       cout << pathCrt[i];
       if (i < pathCrt.size() - 1) printf("/");
     }
     printf(" $ ");
-    gets(cmdTyped);
-    TranslateCmd();
-    ProcessCmd();
+    gets(cmdTyped); //Type command.
+    TranslateCmd(); //Translate command.
+    ProcessCmd();   //Process command.
   }
   return 0;
 }
@@ -90,12 +91,16 @@ int initExplorer() {
   dirRoot->name = "root";
   dirCrt = dirRoot;
   pathCrt.push_back("root");
+
+  /* Check the file. */
   string opt;
   FILE *test = fopen("../dat/explorerdat.txt", "r");
   if (test == NULL) {
     return 0;
   }
   fclose(test);
+
+  /* Get dat. */
   ifstream fin("../dat/explorerdat.txt");
   while (fin >> opt) {
     if (opt == "md") { //Create a child directory.
@@ -127,28 +132,35 @@ int initExplorer() {
 
 //Translate the typed command.
 void TranslateCmd() {
+  /* Preprocess. */
+  cmdArgs.clear();
   for (int i = 0; i < strlen(cmdTyped); i++) {
     if (cmdTyped[i] != ' ' && (i == 0 || cmdTyped[i - 1] == ' ')) {
+      /* Meet a new word. */
       string tmp;
       tmp.push_back(cmdTyped[i]);
-      cmdArgs.push_back(tmp);
-    } else if (cmdTyped[i] != ' ') {
-      cmdArgs[cmdArgs.size() - 1].push_back(cmdTyped[i]);
+      cmdArgs.push_back(tmp);                             //Add it.
+    } else if (cmdTyped[i] != ' ') {                      //Not a new word.
+      cmdArgs[cmdArgs.size() - 1].push_back(cmdTyped[i]); //Add a char.
     }
   }
-  command = cmdArgs[0];
+  command = cmdArgs[0]; //The commad is the first word.
+  
+  /* Process the arguments. */
   for (int i = 0; i < cmdArgs.size() - 1; i++) {
     cmdArgs[i] = cmdArgs[i + 1];
   }
   cmdArgs.pop_back();
 }
 
+//Process the command.
 int ProcessCmd() {
+  /* Search the command. */
   for (int i = 0; i < NUM_COMMANDS; i++) {
-    if (command == cmdName[i]) {
-      return cmdOpt[i](cmdArgs);
+    if (command == cmdName[i]) { //Found.
+      return cmdOpt[i](cmdArgs); //Execute it.
     }
   }
-  printf("Command not found.\n");
+  printf("Command not found.\n"); //Not found.
   return 0;
 }

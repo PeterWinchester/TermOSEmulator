@@ -22,5 +22,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <io.h>
 
 using namespace std;
