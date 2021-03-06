@@ -74,7 +74,7 @@ int startUp() {
 int checkPath(char* path) {
   static char address[MAX_STRING_LEN];
   for (int i=0; i<strlen(path); i++) address[i] = path[i];
-  if (access(address, 0) != -1) return 1;
+  if (access(address, 0) != -1) return 1; //Path not found.
   return 0;
 }
 

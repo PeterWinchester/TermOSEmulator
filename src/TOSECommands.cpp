@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys
+  pause, exitSys, ls
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit"
+  "pause", "exit", "ls"
 };
 
 int pause(vector<string> args) {
@@ -41,5 +41,21 @@ int exitSys(vector<string> args) {
     return 0;
   }
   toseRunning = false; //This means TOSE will quit!
+  return 1;
+}
+
+int ls(vector<string> args) {
+  if (args.size()) {
+    printf("The command 'ls' doesn't need any argument.\n");
+    return 0;
+  }
+  cout << dirCrt->name << ":" << endl;
+  printf(".. <dir>\n");
+  for (int i = 0; i < dirCrt->dirChild.size(); i++) {
+    cout << dirCrt->dirChild[i]->name << " <dir>" << endl;
+  }
+  for (int i = 0; i < dirCrt->file.size(); i++) {
+    cout << dirCrt->file[i].name << " " << dirCrt->file[i].type << endl;
+  }
   return 1;
 }

@@ -17,6 +17,7 @@
 #ifndef TOSE_EXPLORER_H
 #define TOSE_EXPLORER_H
 
+#pragma once
 #include "TermOSEmulator.h"
 
 class TOSEFile { //The class of files.
