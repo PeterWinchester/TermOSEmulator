@@ -125,8 +125,30 @@ int initExplorer() {
   return 1;
 }
 
+//Translate the typed command.
 void TranslateCmd() {
+  for (int i = 0; i < strlen(cmdTyped); i++) {
+    if (cmdTyped[i] != ' ' && (i == 0 || cmdTyped[i - 1] == ' ')) {
+      string tmp;
+      tmp.push_back(cmdTyped[i]);
+      cmdArgs.push_back(tmp);
+    } else if (cmdTyped[i] != ' ') {
+      cmdArgs[cmdArgs.size() - 1].push_back(cmdTyped[i]);
+    }
+  }
+  command = cmdArgs[0];
+  for (int i = 0; i < cmdArgs.size() - 1; i++) {
+    cmdArgs[i] = cmdArgs[i + 1];
+  }
+  cmdArgs.pop_back();
 }
 
 int ProcessCmd() {
+  for (int i = 0; i < NUM_COMMANDS; i++) {
+    if (command == cmdName[i]) {
+      return cmdOpt[i](cmdArgs);
+    }
+  }
+  printf("Command not found.\n");
+  return 0;
 }

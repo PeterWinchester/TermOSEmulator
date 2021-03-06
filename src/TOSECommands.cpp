@@ -20,6 +20,10 @@ CmdFunc cmdOpt[NUM_COMMANDS] = {
   pause, exitSys
 };
 
+string cmdName[NUM_COMMANDS] = {
+  "pause", "exit"
+};
+
 int pause(vector<string> args) {
   printf("Press any key to continue...");
   getch();
