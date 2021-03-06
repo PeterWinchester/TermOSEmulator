@@ -18,6 +18,7 @@
 
 Directory *dirRoot, *dirCrt;
 vector<string> pathCrt;
+ofstream fout;
 
 TOSEFile::TOSEFile() {
   name.clear();
@@ -34,13 +35,41 @@ Directory::Directory() {
 //Create a new directory.
 int createNewDir(string argName) {
   if (argName == "") return 0;      //Invalid name, failed to create.
-  try {                             //Avoid some unkown errors.
+  
+  /* Avoid having two folders with the same name. */
+  for (int i = 0; i < dirCrt->dirChild.size(); i++) {
+    if (dirCrt->dirChild[i]->name == argName) {
+      printf("Cannot create the directory, because there is already a directory with the save name.\n");
+      return 0;
+    }
+  }
+
+  /* Avoid some unkown errors. */
+  try {
     Directory* tmp = new Directory; //This step means a new directory will be created.
     /* Initailize the basic information of the directory. */
     tmp->name = argName;
     tmp->dirFather = dirCrt;
     dirCrt->dirChild.push_back(tmp);
+
+    /* Create directory in Windows. */
+    char dir[MAX_STRING_LEN];
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
+    for (int i = 1; i < pathCrt.size(); i++) {
+      for (int j = 0; j < pathCrt[i].length(); j++) {
+        dir[strlen(dir)] = pathCrt[i][j];
+      }
+      dir[strlen(dir)] = '/';
+    }
+    for (int i = 0; i < argName.length(); i++) {
+      dir[strlen(dir)] = argName[i];
+    }
+    if (CreateDirectoryA((LPCSTR)dir, NULL)) {
+      updateExplorer();
+    }
   } catch(...) {
+    printf("Failed! Unknown error.\n");
     return 0; //Failed.
   }
   return 1; //Success.
@@ -77,4 +106,24 @@ int goToDir(string argName) {
     }
   }
   return 0; //Failed.
+}
+
+//Update the explorer.
+void updateExplorer() {
+  fout.open("../dat/explorerdat.txt", ios::out);
+  writeExplorerData(dirRoot);
+  fout.close();
+}
+
+//Write the data of explorer.
+void writeExplorerData(Directory* argDir) {
+  for (int i = 0; i < argDir->file.size(); i++) {
+    fout << "mf " << argDir->file[i].name << " " << argDir->file[i].type << endl;
+  }
+  for (int i = 0; i < argDir->dirChild.size(); i++) {
+    fout << "md " << argDir->dirChild[i]->name << endl;
+    fout << "cd " << argDir->dirChild[i]->name << endl;
+    writeExplorerData(argDir->dirChild[i]);
+    fout << "cd .." << endl;
+  }
 }

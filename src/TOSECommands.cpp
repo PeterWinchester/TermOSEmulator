@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys, ls, cd
+  pause, exitSys, ls, cd, mkdir
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit", "ls", "cd"
+  "pause", "exit", "ls", "cd", "mkdir"
 };
 
 int pause(vector<string> args) {
@@ -75,10 +75,33 @@ int ls(vector<string> args) {
 int cd(vector<string> args) {
   if (args.size() == 0) {
     printf("The command 'cd' needs an parameter.\n");
+    printf("Type 'help cd' for help.\n");
+    return 0;
+  }
+  if (args.size() > 1) {
+    printf("The parameters given by you are too many.\n");
+    printf("Type 'help cd' for help.\n");
     return 0;
   }
   if (!goToDir(args[0])) {
     printf("Directory not found.\n");
+    return 0;
+  }
+  return 1;
+}
+
+int mkdir(vector<string> args) {
+  if (args.size() == 0) {
+    printf("The command 'mkdir' needs an parameter.\n");
+    printf("Type 'help mkdir' for help.\n");
+    return 0;
+  }
+  if (args.size() > 1) {
+    printf("The parameters given by you are too many.\n");
+    printf("Type 'help mkdir' for help.\n");
+    return 0;
+  }
+  if (!createNewDir(args[0])) {
     return 0;
   }
   return 1;

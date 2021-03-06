@@ -134,7 +134,8 @@ int install() {
     printf("\nError: cannot find TermOSEmulator.exe.\n");
     return 0;
   }
-  static char dir[MAX_STRING_LEN];
+  char dir[MAX_STRING_LEN];
+  memset(dir, 0, sizeof(dir));
   strcat(dir, systemRootPath);
   strcat(dir, "bin/TermOSEmulator.exe");
   fout = fopen(dir, "wb");

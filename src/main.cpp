@@ -80,7 +80,7 @@ int getSystemRootPath() {
   if (fin == NULL) return 0; //Failed.
   int len = 0;
   char cGet;
-  while (fscanf(fin, "%c", &cGet) == 1) systemRootPath[len++] = cGet;
+  while (fscanf(fin, "%c", &cGet) == 1 && cGet != '\r') systemRootPath[len++] = cGet;
   fclose(fin);
   return 1;
 }

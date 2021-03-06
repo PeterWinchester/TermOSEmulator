@@ -17,7 +17,6 @@
 #ifndef TOSE_EXPLORER_H
 #define TOSE_EXPLORER_H
 
-#pragma once
 #include "TermOSEmulator.h"
 
 class TOSEFile { //The class of files.
@@ -45,5 +44,7 @@ extern vector<string> pathCrt; //The current path.
 int createNewDir(string);
 int createNewFile(string, string);
 int goToDir(string);
+void updateExplorer();
+void writeExplorerData(Directory*);
 
 #endif //TOSE_EXPLORER_H
