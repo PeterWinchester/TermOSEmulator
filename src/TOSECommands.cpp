@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys, ls, cd, mkdir
+  pause, exitSys, ls, cd, mkdir, rmdir
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit", "ls", "cd", "mkdir"
+  "pause", "exit", "ls", "cd", "mkdir", "rmdir"
 };
 
 int pause(vector<string> args) {
@@ -78,8 +78,8 @@ int cd(vector<string> args) {
     printf("Type 'help cd' for help.\n");
     return 0;
   }
-  if (args.size() > 1) {
-    printf("The parameters given by you are too many.\n");
+  if (args.size() > 1) { 
+    printf("The parameters are too many.\n");
     printf("Type 'help cd' for help.\n");
     return 0;
   }
@@ -97,7 +97,7 @@ int mkdir(vector<string> args) {
     return 0;
   }
   if (args.size() > 1) {
-    printf("The parameters given by you are too many.\n");
+    printf("The parameters are too many.\n");
     printf("Type 'help mkdir' for help.\n");
     return 0;
   }
@@ -105,4 +105,43 @@ int mkdir(vector<string> args) {
     return 0;
   }
   return 1;
+}
+
+int rmdir(vector<string> args) {
+  if (args.size() == 0) {
+    printf("The command 'rmdir' needs an parameter.\n");
+    printf("Type 'help rmdir' for help.\n");
+    return 0;
+  }
+  if (args.size() > 1) {
+    printf("The parameters are too many.\n");
+    printf("Type 'help rmdir' for help.\n");
+    return 0;
+  }
+  string dir;
+  for (int i = 0; i < strlen(systemRootPath); i++) {
+    dir.push_back(systemRootPath[i]);
+  }
+  for (int i = 1; i < pathCrt.size(); i++) {
+    dir += pathCrt[i];
+    dir += "/";
+  }
+  dir += args[0];
+  dir += "/";
+  if (!RemoveDirectory(dir.c_str())) {
+    printf("Error! Please check the directory in Windows.\n");
+    return 0;
+  }
+  for (int i = 0; i < dirCrt->dirChild.size(); i++) {
+    if (dirCrt->dirChild[i]->name == args[0]) {
+      for (int j = i; j < dirCrt->dirChild.size() - 1; j++) {
+        dirCrt->dirChild[j] = dirCrt->dirChild[j + 1];
+      }
+      dirCrt->dirChild.pop_back();
+      updateExplorer();
+      return 1;
+    }
+  }
+  printf("Error! Cannot find the directory.\n");
+  return 0;
 }
