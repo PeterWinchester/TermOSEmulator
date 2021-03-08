@@ -128,8 +128,8 @@ int rmdir(vector<string> args) {
   }
   dir += args[0];
   dir += "/";
-  if (!RemoveDirectory(dir.c_str())) {
-    printf("Error! Please check the directory in Windows.\n");
+  if (!RemoveDirectoryA(dir.c_str())) {
+    printf("Error! The directory is not empty!\n");
     return 0;
   }
   for (int i = 0; i < dirCrt->dirChild.size(); i++) {
