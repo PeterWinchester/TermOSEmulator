@@ -108,6 +108,16 @@ int goToDir(string argName) {
   return 0; //Failed.
 }
 
+//Delete a directory.
+int delDir(string dirPath) {
+  char cmd[MAX_STRING_LEN];
+  memset(cmd, 0, sizeof(cmd));
+  sprintf(cmd, "rmdir /s /q \"%s\"", dirPath.c_str());
+  int res = system(cmd);
+  if (res == 0) return 1;
+  return 0;
+}
+
 //Update the explorer.
 void updateExplorer() {
   fout.open("../dat/explorerdat.txt", ios::out);
