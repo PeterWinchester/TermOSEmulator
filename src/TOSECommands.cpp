@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys, ls, cd, mkdir, rmdir
+  pause, exitSys, ls, cd, mkdir, rmdir, view
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit", "ls", "cd", "mkdir", "rmdir"
+  "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view"
 };
 
 int pause(vector<string> args) {
@@ -74,7 +74,7 @@ int ls(vector<string> args) {
 
 int cd(vector<string> args) {
   if (args.size() == 0) {
-    printf("The command 'cd' needs an parameter.\n");
+    printf("The command 'cd' needs a parameter.\n");
     printf("Type 'help cd' for help.\n");
     return 0;
   }
@@ -92,7 +92,7 @@ int cd(vector<string> args) {
 
 int mkdir(vector<string> args) {
   if (args.size() == 0) {
-    printf("The command 'mkdir' needs an parameter.\n");
+    printf("The command 'mkdir' needs a parameter.\n");
     printf("Type 'help mkdir' for help.\n");
     return 0;
   }
@@ -109,7 +109,7 @@ int mkdir(vector<string> args) {
 
 int rmdir(vector<string> args) {
   if (args.size() == 0) {
-    printf("The command 'rmdir' needs an parameter.\n");
+    printf("The command 'rmdir' needs a parameter.\n");
     printf("Type 'help rmdir' for help.\n");
     return 0;
   }
@@ -144,4 +144,62 @@ int rmdir(vector<string> args) {
   }
   printf("Error! Cannot find the directory.\n");
   return 0;
+}
+
+int view(vector<string> args) {
+  if (args.size() == 0) {
+    printf("The command 'view' needs a parameter.\n");
+    printf("Type 'help view' for help.\n");
+    return 0;
+  }
+  if (args.size() > 1) {
+    printf("The parameters are too many.\n");
+    printf("Type 'help view' for help.\n");
+    return 0;
+  }
+  string name = args[0], type;
+  while (name.length() > 0 && name[name.length() - 1] != '.') {
+    type.push_back(name[name.length() - 1]);
+    name.pop_back();
+  }
+  name.pop_back();
+  int l = 0, r = type.length() - 1;
+  while (l < r) {
+    swap(type[l], type[r]);
+    l++, r--;
+  }
+  bool find = false;
+  for (int i = 0; i < dirCrt->file.size(); i++) {
+    if (dirCrt->file[i].name == name && dirCrt->file[i].type == type) {
+      find = true;
+      break;
+    }
+  }
+  if (find == false) {
+    printf("Cannot find the file.\n");
+    return 0;
+  }
+  string dir;
+  for (int i = 0; i < strlen(systemRootPath); i++) {
+    dir.push_back(systemRootPath[i]);
+  }
+  for (int i = 1; i < pathCrt.size(); i++) {
+    dir += pathCrt[i];
+    dir.push_back('/');
+  }
+  dir += name;
+  dir.push_back('.');
+  dir += type;
+  FILE *fin = fopen(dir.c_str(), "r");
+  if (fin == NULL) {
+    printf("Error! Please check the file on Windows!\n");
+    return 0;
+  }
+  char cGet;
+  while (fscanf(fin, "%c", &cGet) == 1) {
+    if (cGet == '\r') printf("\n");
+    else printf("%c", cGet);
+  }
+  fclose(fin);
+  return 1;
 }
