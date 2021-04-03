@@ -99,10 +99,10 @@ int goToDir(string argName) {
     return 1;                        //Success.
   }
   for (int i = 0; i < dirCrt->dirChild.size(); i++) { //Find the requested directory.
-    if (dirCrt->dirChild[i]->name == argName) {       //Got it.
-      dirCrt = dirCrt->dirChild[i];                   //Change.
-      pathCrt.push_back(argName);                     //Change the path.
-      return 1;                                       //Success.
+    if (dirCrt->dirChild[i]->name == argName) { //Got it.
+      dirCrt = dirCrt->dirChild[i];             //Change.
+      pathCrt.push_back(argName);               //Change the path.
+      return 1;                                 //Success.
     }
   }
   return 0; //Failed.
@@ -110,12 +110,13 @@ int goToDir(string argName) {
 
 //Delete a directory.
 int delDir(string dirPath) {
+  /* Do it by executing a command. */
   char cmd[MAX_STRING_LEN];
   memset(cmd, 0, sizeof(cmd));
   sprintf(cmd, "rmdir /s /q \"%s\"", dirPath.c_str());
   int res = system(cmd);
-  if (res == 0) return 1;
-  return 0;
+  if (res == 0) return 1; //Success.
+  return 0; //Failed.
 }
 
 //Update the explorer.
@@ -127,9 +128,11 @@ void updateExplorer() {
 
 //Write the data of explorer.
 void writeExplorerData(Directory* argDir) {
+  /* Record the data of files. */
   for (int i = 0; i < argDir->file.size(); i++) {
     fout << "mf " << argDir->file[i].name << " " << argDir->file[i].type << endl;
   }
+  /* Record the data of direcotries. */
   for (int i = 0; i < argDir->dirChild.size(); i++) {
     fout << "md " << argDir->dirChild[i]->name << endl;
     fout << "cd " << argDir->dirChild[i]->name << endl;
