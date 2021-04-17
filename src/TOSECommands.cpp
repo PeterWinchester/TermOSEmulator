@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys, ls, cd, mkdir, rmdir, view
+  pause, exitSys, ls, cd, mkdir, rmdir, view, help
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view"
+  "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view", "help"
 };
 
 int pause(vector<string> args) {
@@ -228,5 +228,74 @@ int view(vector<string> args) {
     else printf("%c", cGet);
   }
   fclose(fin);
-  return 1; //Success.
+  return 1; //Succeeded.
+}
+
+int help(vector<string> args) {
+  /*
+  Check the parameters. This command is special,
+  it can take no arguments. But if it takes one
+  argument, the argument must be the name of a
+  command.
+  */
+  if (args.size() == 0) { //It takes no argument.
+    /* Get the directory in Windows. */
+    string dir;
+    for (int i = 0; i < strlen(systemRootPath); i++) {
+      dir.push_back(systemRootPath[i]);
+    }
+    dir += "bin/help/help.txt";
+    /* Find the help file. */
+    FILE *fin = fopen(dir.c_str(), "r");
+    if (fin == NULL) { //File not found.
+      printf("Error! Help file ont found.\n");
+      return 0; //Failed.
+    }
+    char cGet;
+    while (fscanf(fin, "%c", &cGet) == 1) {
+      /* Process '\r' specially. */
+      if (cGet == '\r') printf("\n");
+      else printf("%c", cGet);
+    }
+    fclose(fin);
+    return 1; //Succeeded.
+  } else if (args.size() == 1) { //It takes one argument.
+    /* Get the directory. */
+    string dir;
+    for (int i = 0; i < strlen(systemRootPath); i++) {
+      dir.push_back(systemRootPath[i]);
+    }
+    dir += "bin/help/";
+    /* Search command. */
+    bool find = false;
+    for (int i = 0; i < NUM_COMMANDS; i++) {
+      if (cmdName[i] == args[0]) { //Got it.
+        dir += args[0];
+        dir += ".txt";
+        find = true;
+        break;
+      }
+    }
+    if (!find) { //Command not found.
+      printf("Error! Command '");
+      cout << args[0];
+      printf("' not found.\n");
+      return 0; //Failed.
+    }
+    /* Find the file. */
+    FILE *fin = fopen(dir.c_str(), "r");
+    if (!fin) { //File not found.
+      printf("Error! File not found.\n");
+      return 0; //Failed.
+    }
+    char cGet;
+    while (fscanf(fin, "%c", &cGet) == 1) {
+      /* Process '\r' specially. */
+      if (cGet == '\r') printf("\n");
+      else printf("%c", cGet);
+    }
+    fclose(fin);
+    return 1; //Succeeded.
+  }
+  return 0; //Failed.
 }

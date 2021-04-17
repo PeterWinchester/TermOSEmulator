@@ -163,6 +163,9 @@ int install() {
   fprintf(fout, "md bin\r");
   fprintf(fout, "cd bin\r");
   fprintf(fout, "md help\r");
+  fprintf(fout, "cd help\r");
+  fprintf(fout, "mf help txt\r");
+  fprintf(fout, "cd ..\r");
   fprintf(fout, "mf TermOSEmulator exe\r");
   fprintf(fout, "cd ..\r");
   fprintf(fout, "md dat\r");
@@ -172,6 +175,23 @@ int install() {
   fprintf(fout, "cd ..\r");
   fprintf(fout, "md etc\r");
   fprintf(fout, "md home\r");
+  fclose(fout);
+
+  /* Create help documents. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "bin/help/help.txt");
+  fout = fopen(dir, "w");
+  fprintf(fout, "\rType help <command> for more information about a command.\r\r");
+  fprintf(fout, "Command Function\r");
+  fprintf(fout, "------- --------\r");
+  fprintf(fout, "pause   Pause.\r");
+  fprintf(fout, "exit    Exit.\r");
+  fprintf(fout, "ls      Display folders and files in the current directory.\r");
+  fprintf(fout, "cd      Change directory.\r");
+  fprintf(fout, "mkdir   Create a new directory in the current directory.\r");
+  fprintf(fout, "view    Display the contents of a text file.\r");
+  fprintf(fout, "help    Display this help document.\r");
   fclose(fout);
 
   printf("done!\n"); //Finished.

@@ -158,7 +158,7 @@ void TranslateCmd() {
 int ProcessCmd() {
   /* Search the command. */
   for (int i = 0; i < NUM_COMMANDS; i++) {
-    if (command == cmdName[i]) { //Found.
+    if (cmdName[i] == command) { //Found.
       return cmdOpt[i](cmdArgs); //Execute it.
     }
   }
