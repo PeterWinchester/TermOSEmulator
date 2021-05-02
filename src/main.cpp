@@ -24,7 +24,7 @@ int initTermOSEmulator();
 void startUp();
 int getSystemRootPath();
 int initExplorer();
-void TranslateCmd();
+int TranslateCmd();
 int ProcessCmd();
 
 int main(int argc, char const *argv[]) {
@@ -45,9 +45,10 @@ int main(int argc, char const *argv[]) {
       if (i < pathCrt.size() - 1) printf("/");
     }
     printf(" $ ");
-    gets(cmdTyped); //Type command.
-    TranslateCmd(); //Translate command.
-    ProcessCmd();   //Process command.
+    gets(cmdTyped);       //Type command.
+    if (TranslateCmd()) { //Translate command.
+    	ProcessCmd();       //Process command.
+		}
   }
   return 0;
 }
@@ -132,7 +133,10 @@ int initExplorer() {
 }
 
 //Translate the typed command.
-void TranslateCmd() {
+int TranslateCmd() {
+	if (strlen(cmdTyped) == 0) { //Didn't type any thing.
+		return 0;                  //Needn't to translate.
+	}
   /* Preprocess. */
   cmdArgs.clear();
   for (int i = 0; i < strlen(cmdTyped); i++) {
@@ -152,6 +156,7 @@ void TranslateCmd() {
     cmdArgs[i] = cmdArgs[i + 1];
   }
   cmdArgs.pop_back();
+	return 1; //Translated.
 }
 
 //Process the command.

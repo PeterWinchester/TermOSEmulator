@@ -191,7 +191,7 @@ int install() {
   fprintf(fout, "cd      Change directory.\r");
   fprintf(fout, "mkdir   Create a new directory in the current directory.\r");
   fprintf(fout, "view    Display the contents of a text file.\r");
-  fprintf(fout, "help    Display this help document.\r");
+  fprintf(fout, "help    Display this help document.\r\r");
   fclose(fout);
 
   printf("done!\n"); //Finished.
