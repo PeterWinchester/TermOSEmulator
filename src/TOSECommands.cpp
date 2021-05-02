@@ -239,12 +239,14 @@ int help(vector<string> args) {
   command.
   */
   if (args.size() == 0) { //It takes no argument.
+
     /* Get the directory in Windows. */
     string dir;
     for (int i = 0; i < strlen(systemRootPath); i++) {
       dir.push_back(systemRootPath[i]);
     }
     dir += "bin/help/help.txt";
+
     /* Find the help file. */
     FILE *fin = fopen(dir.c_str(), "r");
     if (fin == NULL) { //File not found.
@@ -260,12 +262,14 @@ int help(vector<string> args) {
     fclose(fin);
     return 1; //Succeeded.
   } else if (args.size() == 1) { //It takes one argument.
+
     /* Get the directory. */
     string dir;
     for (int i = 0; i < strlen(systemRootPath); i++) {
       dir.push_back(systemRootPath[i]);
     }
     dir += "bin/help/";
+
     /* Search command. */
     bool find = false;
     for (int i = 0; i < NUM_COMMANDS; i++) {
@@ -282,6 +286,7 @@ int help(vector<string> args) {
       printf("' not found.\n");
       return 0; //Failed.
     }
+
     /* Find the file. */
     FILE *fin = fopen(dir.c_str(), "r");
     if (!fin) { //File not found.

@@ -165,6 +165,7 @@ int install() {
   fprintf(fout, "md help\r");
   fprintf(fout, "cd help\r");
   fprintf(fout, "mf help txt\r");
+	fprintf(fout, "mf pause txt\r");
   fprintf(fout, "cd ..\r");
   fprintf(fout, "mf TermOSEmulator exe\r");
   fprintf(fout, "cd ..\r");
@@ -193,6 +194,15 @@ int install() {
   fprintf(fout, "view    Display the contents of a text file.\r");
   fprintf(fout, "help    Display this help document.\r\r");
   fclose(fout);
+
+	memset(dir, 0, sizeof(dir));
+	strcat(dir, systemRootPath);
+	strcat(dir, "bin/help/pause.txt");
+	fout = fopen(dir, "w");
+	fprintf(fout, "\rCommand Name: pause\r");
+	fprintf(fout, "Usage: pause\r");
+	fprintf(fout, "Function: Pause and then press any key to continue.\r\r");
+	fclose(fout);
 
   printf("done!\n"); //Finished.
   return 1;
