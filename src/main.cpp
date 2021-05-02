@@ -47,8 +47,8 @@ int main(int argc, char const *argv[]) {
     printf(" $ ");
     gets(cmdTyped);       //Type command.
     if (TranslateCmd()) { //Translate command.
-    	ProcessCmd();       //Process command.
-		}
+      ProcessCmd();       //Process command.
+    }
   }
   return 0;
 }
@@ -134,9 +134,9 @@ int initExplorer() {
 
 //Translate the typed command.
 int TranslateCmd() {
-	if (strlen(cmdTyped) == 0) { //Didn't type any thing.
-		return 0;                  //Needn't to translate.
-	}
+  if (strlen(cmdTyped) == 0) { //Didn't type any thing.
+    return 0;                  //Needn't to translate.
+  }
   /* Preprocess. */
   cmdArgs.clear();
   for (int i = 0; i < strlen(cmdTyped); i++) {
@@ -156,7 +156,7 @@ int TranslateCmd() {
     cmdArgs[i] = cmdArgs[i + 1];
   }
   cmdArgs.pop_back();
-	return 1; //Translated.
+  return 1; //Translated.
 }
 
 //Process the command.

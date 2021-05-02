@@ -233,10 +233,10 @@ int view(vector<string> args) {
 
 int help(vector<string> args) {
   /*
-  Check the parameters. This command is special,
-  it can take no arguments. But if it takes one
-  argument, the argument must be the name of a
-  command.
+    Check the parameters. This command is special,
+    it can take no arguments. But if it takes one
+    argument, the argument must be the name of a
+    command.
   */
   if (args.size() == 0) { //It takes no argument.
 
