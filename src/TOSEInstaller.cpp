@@ -167,6 +167,7 @@ int install() {
   fprintf(fout, "mf help txt\r");
 	fprintf(fout, "mf pause txt\r");
 	fprintf(fout, "mf exit txt\r");
+  fprintf(fout, "mf ls txt\r");
   fprintf(fout, "cd ..\r");
   fprintf(fout, "mf TermOSEmulator exe\r");
   fprintf(fout, "cd ..\r");
@@ -213,6 +214,15 @@ int install() {
 	fprintf(fout, "Usage: exit\r");
 	fprintf(fout, "Function: Exit TemrOSEmulator.\r\r");
 	fclose(fout);
+
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "bin/help/ls.txt");
+  fout = fopen(dir, "w");
+  fprintf(fout, "\rCommand Name: ls\r");
+  fprintf(fout, "Usage: ls\r");
+  fprintf(fout, "Function: List all folders and files in current directory.\r\r");
+  fclose(fout);
 
   printf("done!\n"); //Finished.
   return 1;
