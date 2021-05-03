@@ -1,9 +1,0 @@
-{
-  "files.associations": {
-    "iostream": "cpp",
-    "cstdio": "cpp",
-    "*.tcc": "cpp",
-    "fstream": "cpp"
-  },
-  "python.pythonPath": "D:\\Python\\Python39\\python.exe"
-}
