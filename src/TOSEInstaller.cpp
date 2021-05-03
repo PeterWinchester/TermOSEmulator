@@ -166,6 +166,7 @@ int install() {
   fprintf(fout, "cd help\r");
   fprintf(fout, "mf help txt\r");
 	fprintf(fout, "mf pause txt\r");
+	fprintf(fout, "mf exit txt\r");
   fprintf(fout, "cd ..\r");
   fprintf(fout, "mf TermOSEmulator exe\r");
   fprintf(fout, "cd ..\r");
@@ -202,6 +203,15 @@ int install() {
 	fprintf(fout, "\rCommand Name: pause\r");
 	fprintf(fout, "Usage: pause\r");
 	fprintf(fout, "Function: Pause and then press any key to continue.\r\r");
+	fclose(fout);
+
+	memset(dir, 0, sizeof(dir));
+	strcat(dir, systemRootPath);
+	strcat(dir, "bin/help/exit.txt");
+	fout = fopen(dir, "w");
+	fprintf(fout, "\rCommand Name: exit\r");
+	fprintf(fout, "Usage: exit\r");
+	fprintf(fout, "Function: Exit TemrOSEmulator.\r\r");
 	fclose(fout);
 
   printf("done!\n"); //Finished.
