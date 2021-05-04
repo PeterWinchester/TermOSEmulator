@@ -21,5 +21,6 @@
 #include "TOSEBasicData.h"
 #include "TOSEExplorer.h"
 #include "TOSECommands.h"
+#include "TOSEApp.h"
 
 #endif //TERMOSEMULATOR_H

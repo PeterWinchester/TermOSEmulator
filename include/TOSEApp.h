@@ -1,5 +1,5 @@
 /*
- * TOSECppLib.h
+ * TOSEApp.h
  * 
  * This file is a part of TermOSEmulator.
  * 
@@ -14,19 +14,20 @@
  * 
  */
 
-#ifndef TOSE_CPP_LIB_H
-#define TOSE_CPP_LIB_H
+#ifndef TOSE_APP_H
+#define TOSE_APP_H
 
-#include <cstdio>
-#include <iostream>
-#include <cstring>
-#include <windows.h>
-#include <conio.h>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <io.h>
+#include "TermOSEmulator.h"
 
-using namespace std;
+#define MAX_NUM_APPLICAITONS 100
 
-#endif //TOSE_CPP_LIB_H
+extern int numApplications;
+
+class Application {
+public:
+  string name;
+};
+
+extern Application apps[MAX_NUM_APPLICAITONS];
+
+#endif //TOSE_APP_H

@@ -24,6 +24,7 @@ int initTermOSEmulator();
 void startUp();
 int getSystemRootPath();
 int initExplorer();
+int initApplications();
 int TranslateCmd();
 int ProcessCmd();
 
@@ -59,6 +60,7 @@ int initTermOSEmulator() {
   color(7);
   if (!getSystemRootPath()) return 0; //Failed to get root path.
   if (!initExplorer()) return 0;      //Failed to initailize explorer.
+  if (!initApplications()) return 0;  //Failed to initailize apps.
   return 1;
 }
 
@@ -102,7 +104,7 @@ int initExplorer() {
   }
   fclose(test);
 
-  /* Get dat. */
+  /* Get data. */
   ifstream fin("../dat/explorerdat.txt");
   while (fin >> opt) {
     if (opt == "md") { //Create a child directory.
@@ -129,7 +131,25 @@ int initExplorer() {
     }
   }
   fin.close();
-  return 1;
+  return 1; //Succeeded.
+}
+
+//Initailize applications.
+int initApplications() {
+  /* Check the file. */
+  FILE* test = fopen("../dat/sysappdat.txt", "r");
+  if (test == NULL) { //Cannot find the file.
+    return 0;         //Failed.
+  }
+  
+  /* Get data. */
+  ifstream fin("../dat/sysappdat.txt");
+  fin >> numApplications;
+  for (int i = 0; i < numApplications; i++) {
+    fin >> apps[i].name;
+  }
+  fin.close();
+  return 1; //Succeeded.
 }
 
 //Translate the typed command.
@@ -167,6 +187,16 @@ int ProcessCmd() {
       return cmdOpt[i](cmdArgs); //Execute it.
     }
   }
-  printf("Command not found.\n"); //Not found.
+
+  /* Look up the apps. */
+  for (int i = 0; i < numApplications; i++) {
+    if (apps[i].name == command) { //Found.
+      /* This step is going to be done. */
+      return 1;
+    }
+  }
+  printf("'");
+  cout << command;
+  printf("' is not a command or an executable file.\n");
   return 0;
 }

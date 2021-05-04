@@ -173,11 +173,20 @@ int install() {
   fprintf(fout, "cd ..\r");
   fprintf(fout, "md dat\r");
   fprintf(fout, "cd dat\r");
+  fprintf(fout, "mf sysappdat txt\r");
   fprintf(fout, "mf rootpath txt\r");
   fprintf(fout, "mf explorerdat txt\r");
   fprintf(fout, "cd ..\r");
   fprintf(fout, "md etc\r");
   fprintf(fout, "md home\r");
+  fclose(fout);
+
+  /* Initailize the data of applications. */
+  memset(dir, 0, sizeof(dir));
+  strcat(dir, systemRootPath);
+  strcat(dir, "dat/sysappdat.txt");
+  fout = fopen(dir, "w");
+  fprintf(fout, "0\r");
   fclose(fout);
 
   /* Create help documents. */
