@@ -168,6 +168,9 @@ int install() {
     fprintf(fout, "mf pause txt\r");
     fprintf(fout, "mf exit txt\r");
     fprintf(fout, "mf ls txt\r");
+	fprintf(fout, "mf cd txt\r");
+	fprintf(fout, "mf mkdir txt\r");
+	fprintf(fout, "mf view txt\r");
     fprintf(fout, "cd ..\r");
     fprintf(fout, "mf TermOSEmulator exe\r");
     fprintf(fout, "cd ..\r");
@@ -231,6 +234,34 @@ int install() {
     fprintf(fout, "\rCommand Name: ls\r");
     fprintf(fout, "Usage: ls\r");
     fprintf(fout, "Function: List all folders and files in current directory.\r\r");
+    fclose(fout);
+
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
+    strcat(dir, "bin/help/cd.txt");
+    fout = fopen(dir, "w");
+    fprintf(fout, "\rCommand Name: cd\r");
+    fprintf(fout, "Usage: cd <directory name>\r");
+    fprintf(fout, "Function: Change the location to another directory, including \r");
+    fprintf(fout, "          child directories and father directory.\r\r");
+    fclose(fout);
+
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
+	strcat(dir, "bin/help/mkdir.txt");
+	fout = fopen(dir, "w");
+    fprintf(fout, "\rCommand Name: mkdir\r");
+    fprintf(fout, "Usage: mkdir <directory name>\r");
+    fprintf(fout, "Function: Create a new child directory.\r\r");
+    fclose(fout);
+
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
+	strcat(dir, "bin/help/view.txt");
+	fout = fopen(dir, "w");
+    fprintf(fout, "\rCommand Name: view\r");
+    fprintf(fout, "Usage: view <file name>\r");
+    fprintf(fout, "Function: Show the contents of a text file.\r\r");
     fclose(fout);
 
     printf("done!\n"); //Finished.
