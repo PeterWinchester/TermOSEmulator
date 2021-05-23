@@ -19,3 +19,16 @@
 int numApplications;
 
 Application apps[MAX_NUM_APPLICAITONS];
+
+//Start an application.
+int startApplication(int hApp) {
+    string dir;
+	for (int i = 0; i < strlen(systemRootPath); i++) {
+		dir.push_back(systemRootPath[i]);
+	}
+	dir += "etc/";
+	dir += apps[hApp].name;
+	dir += ".exe";
+	int res = system(dir.c_str());
+	return res == 0;
+}

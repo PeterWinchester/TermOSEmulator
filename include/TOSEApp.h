@@ -30,4 +30,6 @@ public:
 
 extern Application apps[MAX_NUM_APPLICAITONS];
 
+int startApplication(int);
+
 #endif //TOSE_APP_H

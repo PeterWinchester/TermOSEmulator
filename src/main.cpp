@@ -48,7 +48,7 @@ int main(int argc, char const* argv[]) {
         printf(" $ ");
         gets(cmdTyped);       //Type command.
         if (TranslateCmd()) { //Translate command.
-            ProcessCmd();       //Process command.
+            ProcessCmd();     //Process command.
         }
     }
     return 0;
@@ -68,7 +68,7 @@ int initTermOSEmulator() {
 void startUp() {
     printf("Welcome to TermOSEmulator!\n\n");
     printf("Copyright (C) 2021 Peter Winchester.\n\n");
-    printf("TermOSEmulator is free software, follow the GNU General Public License.\n");
+    printf("TermOSEmulator is free software, follows the GNU General Public License.\n");
     printf("See the file LICENSE for more information about GPL.\n");
     printf("Visit https://github.com/PeterWinchester/TermOSEmulator for source code.\n");
     printf("The writer's email is wincsoft_pw@outlook.com. To report bugs, please\n");
@@ -139,7 +139,7 @@ int initApplications() {
     /* Check the file. */
     FILE* test = fopen("../dat/sysappdat.txt", "r");
     if (test == NULL) { //Cannot find the file.
-        return 0;         //Failed.
+        return 0;       //Failed.
     }
 
     /* Get data. */
@@ -155,7 +155,7 @@ int initApplications() {
 //Translate the typed command.
 int TranslateCmd() {
     if (strlen(cmdTyped) == 0) { //Didn't type any thing.
-        return 0;                  //Needn't to translate.
+        return 0;                //Needn't to translate.
     }
 
     /* Preprocess. */
@@ -166,7 +166,7 @@ int TranslateCmd() {
             string tmp;
             tmp.push_back(cmdTyped[i]);
             cmdArgs.push_back(tmp);                             //Add it.
-        } else if (cmdTyped[i] != ' ') {                      //Not a new word.
+        } else if (cmdTyped[i] != ' ') {                        //Not a new word.
             cmdArgs[cmdArgs.size() - 1].push_back(cmdTyped[i]); //Add a character.
         }
     }
@@ -191,9 +191,8 @@ int ProcessCmd() {
 
     /* Look up the apps. */
     for (int i = 0; i < numApplications; i++) {
-        if (apps[i].name == command) { //Found.
-          /* This step is going to be done. */
-            return 1;
+        if (command == apps[i].name) {  //Found.
+            return startApplication(i); //Start the app.
         }
     }
     printf("'");
