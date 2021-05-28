@@ -23,7 +23,6 @@ vector<string> cmdArgs;
 int initTermOSEmulator();
 void startUp();
 int getSystemRootPath();
-int initExplorer();
 int initApplications();
 int TranslateCmd();
 int ProcessCmd();
@@ -86,52 +85,6 @@ int getSystemRootPath() {
     while (fscanf(fin, "%c", &cGet) == 1 && cGet != '\r') systemRootPath[len++] = cGet;
     fclose(fin);
     return 1;
-}
-
-//Initailize the explorer.
-int initExplorer() {
-    /* Create the root directory. */
-    dirRoot = new Directory;
-    dirRoot->name = "root";
-    dirCrt = dirRoot;
-    pathCrt.push_back("root");
-
-    /* Check the file. */
-    string opt;
-    FILE* test = fopen("../dat/explorerdat.txt", "r");
-    if (test == NULL) {
-        return 0;
-    }
-    fclose(test);
-
-    /* Get data. */
-    ifstream fin("../dat/explorerdat.txt");
-    while (fin >> opt) {
-        if (opt == "md") { //Create a child directory.
-            string name;
-            fin >> name;
-            if (!createNewDir(name)) {
-                fin.close();
-                return 0;
-            }
-        } else if (opt == "mf") { //Create a new file.
-            string name, type;
-            fin >> name >> type;
-            if (!createNewFile(name, type)) {
-                fin.close();
-                return 0;
-            }
-        } else if (opt == "cd") { //Move to a directory.
-            string name;
-            fin >> name;
-            if (!goToDir(name)) {
-                fin.close();
-                return 0;
-            }
-        }
-    }
-    fin.close();
-    return 1; //Succeeded.
 }
 
 //Initailize applications.

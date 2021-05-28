@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-  pause, exitSys, ls, cd, mkdir, rmdir, view, help
+    pause, exitSys, ls, cd, mkdir, rmdir, view, help, apt
 };
 
 string cmdName[NUM_COMMANDS] = {
-  "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view", "help"
+    "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view", "help", "apt"
 };
 
 int pause(vector<string> args) {
@@ -302,5 +302,30 @@ int help(vector<string> args) {
         fclose(fin);
         return 1; //Succeeded.
     }
+    printf("Error! The parameters are too many.\n");
     return 0; //Failed.
+}
+
+int apt(vector<string> args) {
+    
+    /* Check the arguments. This function needs an argument. */
+    if (args.size() == 0) {
+        printf("Error! Command 'apt' needs an argument.\n");
+        return 0;
+    }
+    if (args.size() > 1) {
+        printf("Error! The parameters are too many.\n");
+        return 0;
+    }
+
+    /* The number of arguments is right. */
+    if (args[0] == "get") {
+        return installApp();
+    } else if (args[0] == "remove") {
+        return removeApp();
+    }
+    printf("The command 'apt' doesn't have the argument '");
+    cout << args[0];
+    printf("'.\n");
+    return 0; //The argument is wrong, failed.
 }

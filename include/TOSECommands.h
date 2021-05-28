@@ -19,7 +19,7 @@
 
 #include "TermOSEmulator.h"
 
-#define NUM_COMMANDS 8
+#define NUM_COMMANDS 9
 
 typedef int (*CmdFunc)(vector<string>);
 
@@ -27,13 +27,14 @@ typedef int (*CmdFunc)(vector<string>);
 extern CmdFunc cmdOpt[NUM_COMMANDS];
 extern string cmdName[NUM_COMMANDS];
 
-int pause(vector<string>);   //Execute the command 'pause'.
-int exitSys(vector<string>); //Execute the command 'exit'.
-int ls(vector<string>);      //Execute the command 'ls'.
-int cd(vector<string>);      //Execute the command 'cd'.
-int mkdir(vector<string>);   //Execute the command 'mkdir'.
-int rmdir(vector<string>);   //Execute the command 'rmdir'.
-int view(vector<string>);    //Execute the command 'view'.
-int help(vector<string>);    //Execute the command 'help'.
+int pause(vector<string>);
+int exitSys(vector<string>);
+int ls(vector<string>);
+int cd(vector<string>);
+int mkdir(vector<string>);
+int rmdir(vector<string>);
+int view(vector<string>);
+int help(vector<string>);
+int apt(vector<string>);
 
 #endif //TOSE_COMMANDS_H

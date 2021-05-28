@@ -45,6 +45,7 @@ int createNewDir(string);
 int createNewFile(string, string);
 int goToDir(string);
 int delDir(string);
+int initExplorer();
 void updateExplorer();
 void writeExplorerData(Directory*);
 
