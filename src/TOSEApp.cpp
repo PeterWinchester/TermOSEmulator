@@ -47,12 +47,16 @@ int installApp() {
         printf("The executable file doesn't exist.\n");
         return 0;
     }
+
+    /* Get the name of executable file. */
     int pos = strlen(dir) - 1;
-    string exeFileName;
+    string exeFileName, exeName, exeType;
     while (pos >= 0 && dir[pos] != '/') pos--;
     for (int i = pos + 1; i < strlen(dir); i++) {
         exeFileName.push_back(dir[i]);
     }
+
+    /* Get the installation directory. */
     memset(installPath, 0, sizeof(installPath));
     strcat(installPath, systemRootPath);
     strcat(installPath, "etc/");
@@ -63,6 +67,18 @@ int installApp() {
         fclose(fin);
         return 0;
     }
+    for (int i = exeFileName.length() - 1; i >= 0; i--) {
+        if (exeFileName[i] == '.') {
+            for (int j = i + 1; j < exeFileName.length(); j++) {
+                exeType.push_back(exeFileName[j]);
+            }
+            break;
+        }
+    }
+    if (exeType != "exe") {
+        printf("The type of executable file must be exe.\n");
+        return 0;
+    }
     Directory* dirPos = dirCrt;
     while (dirPos->name != "root") dirPos = dirPos->dirFather;
     for (int i = 0; i < dirPos->dirChild.size(); i++) {
@@ -71,7 +87,7 @@ int installApp() {
             break;
         }
     }
-    string exeName, exeType = "exe";
+    
     for (int i = exeFileName.length() - 1; i >= 0; i--) {
         if (exeFileName[i] == '.') {
             for (int j = 0; j < i; j++) {
@@ -79,21 +95,11 @@ int installApp() {
             }
         }
     }
-    /*
-    for (int i = 0; i < dirPos->file.size(); i++) {
-        if (dirPos->file[i].name == exeName && dirPos->file[i].type == exeType) {
-            if (fin) fclose(fin);
-            if (fout) fclose(fout);
-            printf("The name of two apps can't be the same.\n");
-            return 0;
-        }
-    }
-    */
     for (int i = 0; i < numApplications; i++) {
         if (apps[i].name == exeName) {
             if (fin) fclose(fin);
             if (fout) fclose(fout);
-            printf("The name of two apps can't be the same.\n");
+            printf("The names of two apps can't be the same.\n");
             return 0;
         }
     }
