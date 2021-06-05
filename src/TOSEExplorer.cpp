@@ -79,7 +79,7 @@ int createNewDir(string argName) {
 int createNewFile(string argName, string argType) {
     if (argName == "" | argType == "") return 0; //Invalid information, failed.
     try {                                        //Avoid some unkown errors.
-        TOSEFile tmp;                              //Create a new file.
+        TOSEFile tmp;                            //Create a new file.
         /* Initailize basic information. */
         tmp.name = argName, tmp.type = argType;
         dirCrt->file.push_back(tmp);
@@ -87,6 +87,24 @@ int createNewFile(string argName, string argType) {
         return 0; //Failed.
     }
     return 1; //Success.
+}
+
+//Remove a file.
+int removeFile(string argName, string argType) {
+    if (argName == "" | argType == "") return 0; //Invalid arguments.
+    /* Search the file. */
+    for (int i = 0; i < dirCrt->file.size(); i++) {
+        if (dirCrt->file[i].name == argName & dirCrt->file[i].type == argType) { //Found.
+            /* Remove it. */
+            for (int j = i; j < dirCrt->file.size() - 1; j++) {
+                dirCrt->file[j] = dirCrt->file[j + 1];
+            }
+            dirCrt->file.pop_back();
+            updateExplorer();
+            return 1;
+        }
+    }
+    return 0; //Cannot find the file.
 }
 
 //Change the directory.

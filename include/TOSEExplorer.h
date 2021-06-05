@@ -43,6 +43,7 @@ extern vector<string> pathCrt; //The current path.
 
 int createNewDir(string);
 int createNewFile(string, string);
+int removeFile(string, string);
 int goToDir(string);
 int delDir(string);
 int initExplorer();

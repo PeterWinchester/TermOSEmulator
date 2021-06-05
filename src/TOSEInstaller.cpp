@@ -170,7 +170,10 @@ int install() {
     fprintf(fout, "mf ls txt\r");
 	fprintf(fout, "mf cd txt\r");
 	fprintf(fout, "mf mkdir txt\r");
+    fprintf(fout, "mf rmdir txt\r");
 	fprintf(fout, "mf view txt\r");
+    fprintf(fout, "mf apt txt\r");
+    fprintf(fout, "mf rmf txt\r");
     fprintf(fout, "cd ..\r");
     fprintf(fout, "mf TermOSEmulator exe\r");
     fprintf(fout, "cd ..\r");
@@ -205,8 +208,11 @@ int install() {
     fprintf(fout, "ls      Display folders and files in the current directory.\r");
     fprintf(fout, "cd      Change directory.\r");
     fprintf(fout, "mkdir   Create a new directory in the current directory.\r");
+    fprintf(fout, "rmdir   Remove a folder in the current directory.\r");
     fprintf(fout, "view    Display the contents of a text file.\r");
-    fprintf(fout, "help    Display this help document.\r\r");
+    fprintf(fout, "help    Display this help document.\r");
+    fprintf(fout, "apt     Install or remove an application.\r");
+    fprintf(fout, "rmf     Remove a file in the current directory.\r\r");
     fclose(fout);
 
     memset(dir, 0, sizeof(dir));
@@ -257,11 +263,42 @@ int install() {
 
     memset(dir, 0, sizeof(dir));
     strcat(dir, systemRootPath);
+    strcat(dir, "bin/help/rmdir.txt");
+    fout = fopen(dir, "w");
+    fprintf(fout, "\rCommand Name: rmdir\r");
+    fprintf(fout, "Usage: rmdir <directory name>\r");
+    fprintf(fout, "Function: Remove a directory as well as its child directories and files.\r\r");
+    fclose(fout);
+
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
 	strcat(dir, "bin/help/view.txt");
 	fout = fopen(dir, "w");
     fprintf(fout, "\rCommand Name: view\r");
     fprintf(fout, "Usage: view <file name>\r");
     fprintf(fout, "Function: Show the contents of a text file.\r\r");
+    fclose(fout);
+
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
+    strcat(dir, "bin/help/apt.txt");
+    fout = fopen(dir, "w");
+    fprintf(fout, "\rCommand Name: apt\r");
+    fprintf(fout, "Usage: apt <mode>\r\r");
+    fprintf(fout, "Mode   Function\r");
+    fprintf(fout, "------ --------\r");
+    fprintf(fout, "get    Install an application from Windows.\r");
+    fprintf(fout, "remove Remove an application.\r");
+    fprintf(fout, "list   List installed applications.\r\r");
+    fclose(fout);
+
+    memset(dir, 0, sizeof(dir));
+    strcat(dir, systemRootPath);
+    strcat(dir, "bin/help/rmf.txt");
+    fout = fopen(dir, "w");
+    fprintf(fout, "\rCommand Name: rmf\r");
+    fprintf(fout, "Usage: rmf <file name>\r");
+    fprintf(fout, "Function: Remove a file in the current directory.\r\r");
     fclose(fout);
 
     printf("done!\n"); //Finished.

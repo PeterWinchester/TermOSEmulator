@@ -123,6 +123,7 @@ int TranslateCmd() {
             cmdArgs[cmdArgs.size() - 1].push_back(cmdTyped[i]); //Add a character.
         }
     }
+    if (cmdArgs.size() == 0) return 0; //Didn't type any command.
     command = cmdArgs[0]; //The commad is the first word.
 
     /* Process the arguments. */

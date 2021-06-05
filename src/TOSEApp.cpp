@@ -30,6 +30,13 @@ int startApplication(int hApp) {
 	dir += "etc/";
 	dir += apps[hApp].name;
 	dir += ".exe";
+    /* Check if the executable file exists. */
+    FILE *ftest = fopen(dir.c_str(), "rb");
+    if (ftest == NULL) {
+        printf("Can't find the executable file on Windows.\n");
+        return 0;
+    }
+    fclose(ftest);
 	int res = system(dir.c_str()); //Execute it.
 	return res == 0;
 }
@@ -131,6 +138,70 @@ int installApp() {
 }
 
 int removeApp() {
+    printf("Please type the name of the app which you want to remove:\n");
+    string nameReq;
+    cin >> nameReq;
+
+    /* Search the typed app. */
+    bool find = false;
+    for (int i = 0; i < numApplications; i++) {
+        if (apps[i].name == nameReq) { //Found.
+            find = true;
+            break;
+        }
+    }
+    if (!find) { //Cannot find the app.
+        printf("Cannot find the typed app.\n");
+        return 0;
+    }
+
+    /* Remove the executable file on TermOSemulator. */
+    string typeReq = "exe";
+    Directory *dirPos = dirRoot, *dirTmp = dirCrt;
+    for (int i = 0; i < dirPos->dirChild.size(); i++) {
+        if (dirPos->dirChild[i]->name == "etc") {
+            dirPos = dirPos->dirChild[i];
+        }
+    }
+    dirCrt = dirPos;
+    removeFile(nameReq, typeReq);
+    dirCrt = dirTmp;
+    
+    /* Remove the executable file on Windows. */
+    string dir;
+    for (int i = 0; i < strlen(systemRootPath); i++) {
+        dir.push_back(systemRootPath[i]);
+    }
+    dir += "etc/";
+    dir += nameReq;
+    dir += ".exe";
+    FILE* ftest = fopen(dir.c_str(), "rb");
+    if (ftest != NULL) {
+        fclose(ftest);
+        string cmd = "del \"";
+        cmd += dir;
+        cmd += "\"";
+        for (int i = 0; i < cmd.length(); i++) {
+            if (cmd[i] == '/') {
+                cmd[i] = '\\';
+            }
+        }
+        system(cmd.c_str()); //Remove it.
+    }
+
+    /* Update the data. */
+    for (int i = 0; i < numApplications; i++) {
+        if (apps[i].name == nameReq) {
+            for (int j = i; j < numApplications - 1; j++) {
+                apps[j] = apps[j + 1];
+            }
+            break;
+        }
+    }
+    numApplications--;
+    updateAppData();
+
+    printf("Removed.\n");
     return 1;
 }
 

@@ -17,11 +17,11 @@
 #include "TOSECommands.h"
 
 CmdFunc cmdOpt[NUM_COMMANDS] = {
-    pause, exitSys, ls, cd, mkdir, rmdir, view, help, apt
+    pause, exitSys, ls, cd, mkdir, rmdir, view, help, apt, rmf
 };
 
 string cmdName[NUM_COMMANDS] = {
-    "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view", "help", "apt"
+    "pause", "exit", "ls", "cd", "mkdir", "rmdir", "view", "help", "apt", "rmf"
 };
 
 int pause(vector<string> args) {
@@ -163,6 +163,57 @@ int rmdir(vector<string> args) {
     }
     printf("Error! Cannot find the directory.\n");
     return 0; //Failed.
+}
+
+int rmf(vector<string> args) {
+    /* Check the arguments. */
+    if (args.size() == 0) {
+        printf("The command 'rmf' needs a parameter.\n");
+        printf("Type 'help rmf' for details.\n");
+        return 0;
+    }
+    if (args.size() > 1) {
+        printf("The parameters are too many.\n");
+        printf("Type 'help rmf' for details.\n");
+        return 0;
+    }
+
+    /* Get the type and the name. */
+    string nameReq, typeReq;
+    int pos = args[0].length() - 1;
+    while (pos >= 0 & args[0][pos] != '.') pos--;
+    for (int i = pos + 1; i < args[0].length(); i++) typeReq.push_back(args[0][i]);
+    for (int i = 0; i < pos; i++) nameReq.push_back(args[0][i]);
+
+    /* Check the file. */
+    string dir;
+    for (int i = 0; i < strlen(systemRootPath); i++) {
+        dir.push_back(systemRootPath[i]);
+    }
+    for (int i = 1; i < pathCrt.size(); i++) {
+        dir += pathCrt[i];
+        dir += "/";
+    }
+    dir += args[0];
+    FILE* find = fopen(dir.c_str(), "r");
+    if (find == NULL) {
+        printf("Can't find the file on Windows!\n");
+        printf("Please check the current directory.\n");
+        return 0;
+    }
+    fclose(find);
+    if (!removeFile(nameReq, typeReq)) {
+        printf("Cannot find the file.\n");
+        return 0;
+    }
+
+    /* Remove the file. */
+    string cmd = "del \"";
+    for (int i = 0; i < dir.length(); i++) if (dir[i] == '/') dir[i] = '\\';
+    cmd += dir;
+    cmd += "\"";
+    int res = system(cmd.c_str());
+    return res == 0;
 }
 
 int view(vector<string> args) {
@@ -323,6 +374,17 @@ int apt(vector<string> args) {
         return installApp();
     } else if (args[0] == "remove") {
         return removeApp();
+    } else if (args[0] == "list") {
+        if (numApplications == 0) {
+            printf("No installed application.\n");
+            return 1;
+        }
+        printf("%d applications installed:\n", numApplications);
+        for (int i = 0; i < numApplications; i++) {
+            cout << apps[i].name << ' ';
+        }
+        cout << endl;
+        return 1;
     }
     printf("The command 'apt' doesn't have the argument '");
     cout << args[0];

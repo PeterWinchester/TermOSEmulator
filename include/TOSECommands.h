@@ -19,7 +19,7 @@
 
 #include "TermOSEmulator.h"
 
-#define NUM_COMMANDS 9
+#define NUM_COMMANDS 10
 
 typedef int (*CmdFunc)(vector<string>);
 
@@ -33,6 +33,7 @@ int ls(vector<string>);
 int cd(vector<string>);
 int mkdir(vector<string>);
 int rmdir(vector<string>);
+int rmf(vector<string>);
 int view(vector<string>);
 int help(vector<string>);
 int apt(vector<string>);
