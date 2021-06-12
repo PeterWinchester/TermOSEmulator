@@ -65,6 +65,7 @@ int ls(vector<string> args) {
     color(9);
     for (int i = 0; i < dirCrt->dirChild.size(); i++) {
         cout << dirCrt->dirChild[i]->name << " ";
+        if ((i + 1) % 5 == 0) printf("\n");
     }
     /* Show files. */
     color(7);
@@ -76,6 +77,7 @@ int ls(vector<string> args) {
         } else {
             cout << dirCrt->file[i].name << "." << dirCrt->file[i].type << " ";
         }
+        if ((i + 1) % 5 == 0) printf("\n");
     }
     cout << endl;
     return 1; //Success.

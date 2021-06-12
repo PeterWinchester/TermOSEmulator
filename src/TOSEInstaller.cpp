@@ -290,6 +290,7 @@ int install() {
     fprintf(fout, "get    Install an application from Windows.\r");
     fprintf(fout, "remove Remove an application.\r");
     fprintf(fout, "list   List installed applications.\r\r");
+    fprintf(fout, "Note: If you want to run an app, just type its name.\r\r");
     fclose(fout);
 
     memset(dir, 0, sizeof(dir));
