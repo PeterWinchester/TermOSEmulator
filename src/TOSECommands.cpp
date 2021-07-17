@@ -360,7 +360,7 @@ int help(vector<string> args) {
 }
 
 int apt(vector<string> args) {
-    
+
     /* Check the arguments. This function needs an argument. */
     if (args.size() == 0) {
         printf("Error! Command 'apt' needs an argument.\n");
@@ -387,6 +387,9 @@ int apt(vector<string> args) {
         }
         cout << endl;
         return 1;
+    } else if (args[0] == "autoremove") {
+        /* TODO: Process the argument "autoremove". */
+        
     }
     printf("The command 'apt' doesn't have the argument '");
     cout << args[0];

@@ -24,12 +24,12 @@ Application apps[MAX_NUM_APPLICAITONS];
 //Start an application.
 int startApplication(int hApp) {
     string dir; //The path of app.
-	for (int i = 0; i < strlen(systemRootPath); i++) {
-		dir.push_back(systemRootPath[i]);
-	}
-	dir += "etc/";
-	dir += apps[hApp].name;
-	dir += ".exe";
+    for (int i = 0; i < strlen(systemRootPath); i++) {
+        dir.push_back(systemRootPath[i]);
+    }
+    dir += "etc/";
+    dir += apps[hApp].name;
+    dir += ".exe";
     /* Check if the executable file exists. */
     FILE *ftest = fopen(dir.c_str(), "rb");
     if (ftest == NULL) {
@@ -37,24 +37,24 @@ int startApplication(int hApp) {
         return 0;
     }
     fclose(ftest);
-	int res = system(dir.c_str()); //Execute it.
-	return res == 0;
+    int res = system(dir.c_str()); //Execute it.
+    return res == 0;
 }
 
 int installApp() {
-    
+
     /* Type the path. */
     printf("Please type the path of the executable file:\n");
     memset(dir, 0, sizeof(dir));
     gets(dir); //Enter the path and store it in the string dir.
-    
+
     /* Check the path. */
     FILE* fin = fopen(dir, "rb");
     if (fin == NULL) { //Cannot find the file.
         printf("The executable file doesn't exist.\n");
         return 0;
     }
-    
+
     string exeFileName, exeName, exeType;
 
     /* Get the name of executable file. */
@@ -132,7 +132,7 @@ int installApp() {
     apps[numApplications++].name = exeName;
     updateExplorer(); //Update the data.
     updateAppData();
-    
+
     printf("Installed.\n");
     return 1;
 }
@@ -166,7 +166,7 @@ int removeApp() {
     dirCrt = dirPos;
     removeFile(nameReq, typeReq);
     dirCrt = dirTmp;
-    
+
     /* Remove the executable file on Windows. */
     string dir;
     for (int i = 0; i < strlen(systemRootPath); i++) {
@@ -203,6 +203,10 @@ int removeApp() {
 
     printf("Removed.\n");
     return 1;
+}
+
+int autoRemove() {
+    /* TODO: Find apps that no longer needed and remove them. */
 }
 
 void updateAppData() {

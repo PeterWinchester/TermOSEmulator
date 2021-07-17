@@ -33,6 +33,7 @@ extern Application apps[MAX_NUM_APPLICAITONS];
 int startApplication(int);
 int installApp();
 int removeApp();
+int autoRemove();
 void updateAppData();
 
 #endif //TOSE_APP_H
