@@ -19,6 +19,7 @@
 bool toseRunning;
 char systemRootPath[MAX_STRING_LEN];
 
-void color(int arg) {
+void color(int arg)
+{
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), arg);
 }

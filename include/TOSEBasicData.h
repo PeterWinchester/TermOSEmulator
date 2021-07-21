@@ -21,7 +21,7 @@
 
 #define MAX_STRING_LEN 1000
 
-extern bool toseRunning; //A sign to check if TOSE is running.
+extern bool toseRunning;                    //A sign to check if TOSE is running.
 extern char systemRootPath[MAX_STRING_LEN]; //The root path of TOSE.
 
 void color(int); //Set color to print.

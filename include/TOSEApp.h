@@ -23,7 +23,8 @@
 
 extern int numApplications;
 
-class Application {
+class Application
+{
 public:
     string name;
 };
@@ -33,6 +34,7 @@ extern Application apps[MAX_NUM_APPLICAITONS];
 int startApplication(int);
 int installApp();
 int removeApp();
+int listApps();
 int autoRemove();
 void updateAppData();
 
