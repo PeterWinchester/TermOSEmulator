@@ -461,9 +461,7 @@ int apt(vector<string> args)
     }
     else if (args[0] == "autoremove")
     {
-        /* TODO: Process the argument "autoremove". */
 		return autoRemove();
-		
     }
     printf("The command 'apt' doesn't have the argument '");
     cout << args[0];

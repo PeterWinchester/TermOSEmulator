@@ -314,7 +314,6 @@ int install()
     fprintf(fout, "remove     Remove an application.\r");
     fprintf(fout, "list       List installed applications.\r");
 	fprintf(fout, "autoremove Remove apps which are no longer needed.\r\r");
-    /* TODO: Write the information about mode "autoremove". */
     fprintf(fout, "Note: If you want to run an app, just type its name.\r\r");
     fclose(fout);
 

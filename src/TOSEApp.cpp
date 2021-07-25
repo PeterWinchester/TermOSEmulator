@@ -246,7 +246,6 @@ int removeApp()
 
 int autoRemove()
 {
-    /* TODO: Find apps that no longer needed and remove them. */
 	char path[MAX_STRING_LEN];
 	for (int i = 0; i < numApplications; i++)
 	{
